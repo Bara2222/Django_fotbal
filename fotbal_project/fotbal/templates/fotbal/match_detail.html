@@ -1,0 +1,126 @@
+{% extends "fotbal/base.html" %}
+
+{% block title %}
+Detail zápasu: {{ match.home_team.name }} vs {{ match.away_team.name }}
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f9fc;
+    color: #222;
+  }
+  h1, h2 {
+    color: #1a1a1a;
+    text-align: center;
+  }
+  table.match-events {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(51, 226, 208, 0.08);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  table.match-events thead tr {
+    background-color: #33e2d0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 18px 18px 0 0;
+  }
+  table.match-events thead th {
+    padding: 15px 20px;
+    text-align: left;
+    border: none;
+  }
+  table.match-events tbody tr {
+    background-color: #fefefe;
+    border-radius: 12px;
+  }
+  table.match-events tbody td {
+    padding: 15px 20px;
+    border: none;
+    vertical-align: middle;
+    font-size: 1rem;
+    border-radius: 12px;
+    transition: background 0.3s;
+  }
+  table.match-events tbody td:first-child {
+    font-weight: 700;
+    color: #33e2d0;
+    width: 80px;
+    border-radius: 12px 0 0 12px;
+  }
+  table.match-events tbody td:last-child {
+    border-radius: 0 12px 12px 0;
+  }
+  .event-goal {
+    background: #4be37c !important;
+    color: #fff;
+    font-weight: 600;
+  }
+  .event-yellow {
+    background: #ffe082 !important;
+    color: #8a6d00;
+    font-weight: 600;
+  }
+  .event-red {
+    background: #ff6f6f !important;
+    color: #fff;
+    font-weight: 600;
+  }
+  .btn-back {
+    display: block;
+    max-width: 200px;
+    margin: 40px auto 20px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #33e2d0;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(51, 226, 208, 0.18);
+    transition: background 0.2s;
+  }
+  .btn-back:hover {
+    background-color: #21b8a7;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Detail zápasu</h1>
+<h2>{{ match.home_team.name }} vs {{ match.away_team.name }}</h2>
+<p style="text-align:center;"><strong>Datum:</strong> {{ match.date }}</p>
+<p style="text-align:center; font-size:1.5rem; font-weight:700;">Výsledek: {{ match.home_goals }} : {{ match.away_goals }}</p>
+
+{% if events %}
+<table class="match-events">
+  <thead>
+    <tr>
+      <th>Minuta</th>
+      <th>Událost</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in events %}
+    <tr>
+      <td>{{ event.minute }}</td>
+      <td class="{{ event.css_class }}">{{ event.desc }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p style="text-align:center; margin-top:40px; font-size:1.2rem;">Popis zápasu není k dispozici.</p>
+{% endif %}
+
+<a href="{% url 'fotbal:matches' %}" class="btn-back">← Zpět na seznam zápasů</a>
+{% endblock %}

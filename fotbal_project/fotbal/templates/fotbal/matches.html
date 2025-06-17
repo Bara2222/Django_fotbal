@@ -1,0 +1,57 @@
+{% extends "fotbal/base.html" %}
+
+{% block title %}Seznam zápasů{% endblock %}
+
+{% block extra_head %}
+<style>
+  .match-list {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+  }
+  .match-item {
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-show-detail {
+    background-color: #33e2d0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  .btn-show-detail:hover {
+    background-color: #21b8a7;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="match-list">
+  <h1>Seznam zápasů</h1>
+  {% if matches %}
+    {% for match in matches %}
+      <div class="match-item">
+        <div>
+          <strong>{{ match.home_team.name }}</strong> vs <strong>{{ match.away_team.name }}</strong><br>
+          <small>{{ match.date }}</small>
+        </div>
+        <a href="{% url 'fotbal:match_detail' match.pk %}" class="btn-show-detail">Zobrazit průběh</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Žádné zápasy k zobrazení.</p>
+  {% endif %}
+</div>
+{% endblock %}

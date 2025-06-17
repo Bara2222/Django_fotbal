@@ -1,0 +1,21 @@
+{% extends "fotbal/base.html" %}
+{% block title %}Domů - Databáze fotbalistů{% endblock %}
+
+{% block content %}
+<h1>Vítejte v databázi fotbalistů</h1>
+<p>Prohlédněte si naše týmy, hráče a zápasy.</p>
+<hr>
+<h2>Nejnovější týmy</h2>
+<div class="row">
+    {% for team in teams %}
+    <div class="col-md-3 mb-3">
+        <div class="card p-3 shadow-sm">
+            <h5><a href="{% url 'fotbal:team_detail' team.pk %}">{{ team.name }}</a></h5>
+            <p>{{ team.city }}, založen {{ team.founded }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>Žádné týmy k zobrazení.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "fotbal/base.html" %}
+
+{% block title %}Tým: {{ team.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ team.name }}</h1>
+<p><strong>Město:</strong> {{ team.city }}</p>
+<p><strong>Rok založení:</strong> {{ team.founded }}</p>
+
+<h2>Hráči týmu</h2>
+{% if players %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Národnost</th>
+            <th>Věk</th>
+            <th>Pozice</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for player in players %}
+        <tr>
+            <td>{{ player.first_name }}</td>
+            <td>{{ player.last_name }}</td>
+            <td>{{ player.nationality }}</td>
+            <td>{{ player.age }}</td>
+            <td>{{ player.position }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Tento tým zatím nemá žádné hráče.</p>
+{% endif %}
+
+<a href="{% url 'fotbal:teams' %}" class="btn btn-secondary mt-3">← Zpět na seznam týmů</a>
+{% endblock %}

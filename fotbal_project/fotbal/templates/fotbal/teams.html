@@ -1,0 +1,15 @@
+{% extends "fotbal/base.html" %}
+{% block title %}Týmy{% endblock %}
+
+{% block content %}
+<h1>Týmy</h1>
+<ul class="list-group">
+    {% for team in teams %}
+    <li class="list-group-item">
+        <a href="{% url 'fotbal:team_detail' team.pk %}">{{ team.name }}</a> ({{ team.city }}, založen {{ team.founded }})
+    </li>
+    {% empty %}
+    <li class="list-group-item">Žádné týmy k zobrazení.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

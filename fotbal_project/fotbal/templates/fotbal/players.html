@@ -1,0 +1,16 @@
+{% extends "fotbal/base.html" %}
+{% block title %}Hráči{% endblock %}
+
+{% block content %}
+    <h1>Hráči</h1>
+    <ul class="list-group">
+        {% for player in players %}
+            <li class="list-group-item">
+                <a href="{% url 'fotbal:player_detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a>
+                - {{ player.position }} ({{ player.team.name }})
+            </li>
+        {% empty %}
+            <li class="list-group-item">Žádní hráči k zobrazení.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
