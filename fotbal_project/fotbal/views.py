@@ -1,5 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,  redirect
 from .models import Team, Player, Match, Goal
+from .forms import PlayerForm
+
+def player_create(request):
+    if request.method == 'POST':
+        form = PlayerForm(request.POST, request.FILES)  
+        if form.is_valid():
+            form.save()
+            return redirect('fotbal:players_list')  # přesměruj na seznam hráčů nebo jinam
+    else:
+        form = PlayerForm()
+    return render(request, 'fotbal/player_form.html', {'form': form})
+
 
 def home(request):
     teams = Team.objects.all()[:5]  # například prvních 5 týmů
