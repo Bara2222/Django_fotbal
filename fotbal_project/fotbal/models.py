@@ -1,4 +1,12 @@
 from django.db import models
+import forms
+from .models import Player  
+
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = ['first_name', 'last_name', 'position', 'team', 'photo']  
+
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
