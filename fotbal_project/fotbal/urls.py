@@ -11,4 +11,5 @@ urlpatterns = [
     path('hraci/<int:pk>/', views.player_detail, name='player_detail'),
     path('zapasy/', views.matches, name='matches'),
     path('zapasy/<int:pk>/', views.match_detail, name='match_detail'),
+    path('players/add/', views.player_create, name='player_add'),
 ]
